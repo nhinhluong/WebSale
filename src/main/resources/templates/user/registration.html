@@ -15,6 +15,7 @@
              <div class="col-md-3"></div>
              <div class="col-md-6">
               <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+              <div id="popupWindow" style="display:none;">
      </div>
              </div>
          </div>
@@ -101,5 +102,17 @@
          </div>
      </form>
  </div>
+ 
+ <script>
+ $("#popupWindow").dialog();
+//After that you can send your form in an ajax request
+$.ajax({
+  url:url,
+  data:$(form).serialize(),
+  success:function(data) {
+      alert('sadfdsadsfasf');
+   }
+});
+ </script>
 </body>
 </html>

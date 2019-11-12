@@ -1,10 +1,17 @@
 package com.ltn.webl.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.ltn.webl.entity.Product;
 
 public interface ProductService {
-	public Product findProductbyName(String p_name);
-	public Product findProductbyCode(String p_code);
-	public void saveProduct(Product product);
+	List<Product> getAllProduct();  
+
+	  void saveProduct(Product product);  
+
+	  void deleteProduct(Long id);  
+
+	  Optional<Product> findProductById(Long id); 
 
 }

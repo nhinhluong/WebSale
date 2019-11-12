@@ -1,5 +1,6 @@
 package com.ltn.webl.controller;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.validation.Valid;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ltn.webl.entity.Product;
 import com.ltn.webl.entity.User;
+import com.ltn.webl.service.ProductService;
 import com.ltn.webl.service.UserService;
 
 @Controller
@@ -21,8 +24,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired private ProductService productService;  
 
-	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/login" }, method = RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView model = new ModelAndView();
 
@@ -66,7 +71,9 @@ public class UserController {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
+		List<Product> products = productService.getAllProduct();  
 
+	    model.addObject("products", products); 
 		model.addObject("userName", user.getFirstname() + " " + user.getLastname());
 		model.setViewName("home/home");
 		return model;

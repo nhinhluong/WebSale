@@ -2,6 +2,8 @@ package com.ltn.webl.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,38 +18,25 @@ import com.ltn.webl.repository.ProductRepository;
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
-	ProductRepository productRepository;
-	
-	//@Autowired
-	Catalogy catalogy;
+	@Autowired private ProductRepository productRepository;  
 
-	@Autowired
-	CatalogyRepository catalogyRepository;
+	  @Override  
+	  public List<Product> getAllProduct() {  
+	    return (List<Product>) productRepository.findAll();  
+	  }  
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	  @Override  
+	  public void saveProduct(Product product) {  
+		  productRepository.save(product);  
+	  }  
 
-	@Override
-	public Product findProductbyName(String p_name) {
-		// TODO Auto-generated method stub
-		return productRepository.findByName(p_name);
-	}
+	  @Override  
+	  public void deleteProduct(Long id) {  
+		  productRepository.deleteById(id);  
+	  }  
 
-	@Override
-	public Product findProductbyCode(String p_code) {
-		// TODO Auto-generated method stub
-		return productRepository.findByCode(p_code);
-	}
-
-	@Override
-	public void saveProduct(Product product) {
-		// TODO Auto-generated method stub
-		//product.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		product.setActive(1);
-		Catalogy productCat = catalogyRepository.findByCatalogy(catalogy.getCatalogy());
-		product.setCatalogies(new HashSet<Catalogy>(Arrays.asList(productCat)));
-		productRepository.save(product);
-	}
-
+	  @Override  
+	  public Optional<Product> findProductById(Long id) {  
+	    return productRepository.findById(id);  
+	  }  
 }

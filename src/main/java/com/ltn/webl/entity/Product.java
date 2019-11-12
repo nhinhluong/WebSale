@@ -1,5 +1,6 @@
 package com.ltn.webl.entity;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,90 +11,79 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="product")
+@Table(name = "product")
 public class Product {
-	@Id
-	 @GeneratedValue(strategy = GenerationType.AUTO)
-	 private int id;
-	 
-	 @Column(name = "code")
-	 private String code;
-	 
-	 @Column(name = "name")
-	 private String name; 
-	 
-	 @Column(name = "amount")
-	 private Double amount;
-	 
-	 @Column(name = "quantity")
-	 private Double quantity;
-	 
-	 @Column(name = "active")
-	 private int active;
-	 
-	 @ManyToMany(cascade=CascadeType.ALL)
-	 @JoinTable(name="catalogy_product", joinColumns=@JoinColumn(name="product_id"), inverseJoinColumns=@JoinColumn(name="cat_id"))
-	 private Set<Catalogy> catalogies;
+	@Id  
+	 @GeneratedValue(strategy = GenerationType.AUTO)  
+	  private Long id;  
 
-	public int getId() {
-		return id;
-	}
+	  @Column(name = "name")  
+	  private String name;  
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	  @Column(name = "email")  
+	  private String email;  
 
-	public String getCode() {
-		return code;
-	}
+	  @Column(name = "phone")  
+	  private String phone;  
 
-	public void setCode(String code) {
-		this.code =code;
-	}
+	  public Product() {}  
 
-	public String getName() {
-		return name;
-	}
+	  public Product(String name, String email, String phone) {  
+	    this.name = name;  
+	    this.email = email;  
+	    this.phone = phone;  
+	  }  
 
-	public void setName(String name) {
-		this.name = name;
-	}
+	  public Long getId() {  
+	    return id;  
+	  }  
 
-	public Double getAmount() {
-		return amount;
-	}
+	  public void setId(Long id) {  
+	    this.id = id;  
+	  }  
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
+	  public String getName() {  
+	    return name;  
+	  }  
 
-	public Double getQuantity() {
-		return quantity;
-	}
+	  public void setName(String name) {  
+	    this.name = name;  
+	  }  
 
-	public void setQuantity(Double quantity) {
-		this.quantity = quantity;
-	}
+	  public String getEmail() {  
+	    return email;  
+	  }  
 
-	public int getActive() {
-		return active;
-	}
+	  public void setEmail(String email) {  
+	    this.email = email;  
+	  }  
 
-	public void setActive(int active) {
-		this.active = active;
-	}
+	  public String getPhone() {  
+	    return phone;  
+	  }  
 
-	public Set<Catalogy> getCatalogies() {
-		return catalogies;
-	}
+	  public void setPhone(String phone) {  
+	    this.phone = phone;  
+	  }  
+//
+//	@ManyToMany(cascade = CascadeType.ALL)
+//	@JoinTable(name = "catalogy_product", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "cat_id"))
+//	private Set<Catalogy> catalogies;
 
-	public void setCatalogies(Set<Catalogy> catalogies) {
-		this.catalogies = catalogies;
-	}
 
-	 
+//	public Set<Catalogy> getCatalogies() {
+//		return catalogies;
+//	}
+//
+//	public void setCatalogies(Set<Catalogy> catalogies) {
+//		this.catalogies = catalogies;
+//	}
+
 }

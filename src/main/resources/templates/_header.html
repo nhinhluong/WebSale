@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="" xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid" style="display:block">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Online Shop</a>
+				</div>
+				<ul class="nav navbar-nav" style="display:inherit">
+					<li class="active"><a th:href="@{/}">Home</a></li>
+					<th:block sec:authorize="hasRole('ADMIN')">
+						<li><a th:href="@{/addProduct}"> Add Product</a></li>
+   					</th:block>
+   					<th:block sec:authorize="hasRole('ADMIN')">
+						<li><a th:href="@{/editProduct}"> Edit Product</a></li>
+   					</th:block>
+   					<th:block sec:authorize="hasRole('ADMIN')">
+						<li><a th:href="@{/addCatalogy}"> Add Catalogy</a></li>
+   					</th:block>
+   					<th:block sec:authorize="hasRole('ADMIN')">
+						<li><a th:href="@{/editCatalogy}"> Edit Catalogy</a></li>
+   					</th:block>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<th:block sec:authorize="isAuthenticated()">
+						<li><a th:href="@{/user/accountInfo}"
+							th:utext="${#request.userPrincipal.name}"><span
+								class="glyphicon glyphicon-user"></span> ..</a></li>
+						<li><a th:href="@{/logout}">Sign out</a></li>
+					</th:block>
+					<th:block sec:authorize="!isAuthenticated()">
+						<li><a th:href="@{/user/login}"><span
+								class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					</th:block>
+				</ul>
+			</div>
+		</nav>
+
+	</div>
+</body>
+</html>

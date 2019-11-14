@@ -74,8 +74,7 @@
 										<i class="fa fa-at"></i>
 									</div>
 									<input type="text" th:field="*{email}" class="form-control"
-										id="email" placeholder="username@mail.com" required
-										autofocus>
+										id="email" placeholder="username@mail.com" required autofocus>
 								</div>
 							</div>
 						</div>
@@ -112,6 +111,22 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-md-3 field-label-responsive">
+							<label for="email">Email</label>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+									<select th:field="*{r_name}" class="form-control">
+										<option value="">Select Role</option>
+										<option th:each="lrole1 : ${listRole1}" th:value="${lrole1.role}"
+											th:text="${lrole1.role}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-md-3"></div>
 						<div class="col-md-6">
 							<button type="submit" class="btn btn-success" id="registerBtn">
@@ -119,7 +134,7 @@
 							</button>
 						</div>
 						<div class="col-md-6">
-								<a href="/login">Quay về trang đăng nhập</a>
+							<a href="/login">Quay về trang đăng nhập</a>
 						</div>
 					</div>
 				</form>

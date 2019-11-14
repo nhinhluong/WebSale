@@ -36,6 +36,9 @@ public class User {
  @Column(name = "active")
  private int active;
  
+ //role_name temp
+ private String r_name;
+ 
  @ManyToMany(cascade=CascadeType.ALL)
  @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
  private Set<Role> roles;
@@ -48,7 +51,15 @@ public class User {
   this.id = id;
  }
 
- public String getEmail() {
+ public String getR_name() {
+	return r_name;
+}
+
+public void setR_name(String r_name) {
+	this.r_name = r_name;
+}
+
+public String getEmail() {
   return email;
  }
 

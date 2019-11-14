@@ -14,5 +14,5 @@ public interface CatalogyService {
 	  
 	  Optional<Catalogy> findCatalogyById(Long id); 
 
-	  public Catalogy findCatalogyByName(String name); 
+	  public Catalogy findCatById(Long id); 
 }

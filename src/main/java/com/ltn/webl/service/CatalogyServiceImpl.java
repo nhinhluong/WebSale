@@ -35,9 +35,9 @@ public class CatalogyServiceImpl implements CatalogyService {
 	}
 
 	@Override
-	public Catalogy findCatalogyByName(String name) {
+	public Catalogy findCatById(Long id) {
 		// TODO Auto-generated method stub
-		return catalogyRepository.findByName(name);
+		return catalogyRepository.findCatById(id);
 	}
 
 	@Override

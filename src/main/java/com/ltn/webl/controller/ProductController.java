@@ -26,6 +26,8 @@ import com.ltn.webl.service.RoleService;
 @Controller
 public class ProductController {
 	@Autowired private ProductService productService;  
+	
+	@Autowired private CatalogyService catalogyService;
 
 	  @RequestMapping("/home")  
 	  public String index(Model model) {  
@@ -38,6 +40,8 @@ public class ProductController {
 
 	  @RequestMapping(value = "addProduct")  
 	  public String addProduct(Model model) {  
+		List<Catalogy> listCata1 = catalogyService.getAllCatalogy();
+		model.addAttribute("listCata1", listCata1);
 	    model.addAttribute("product", new Product());  
 	    return "home/product/addProduct";  
 	  }  

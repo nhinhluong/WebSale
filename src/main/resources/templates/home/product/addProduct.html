@@ -16,6 +16,16 @@
                 <input type="text" th:field="*{name}" class="form-control" placeholder="Name"/>  
             </div>  
             <div style="clear: both; display: block; height: 10px"></div>  
+            <div>
+                <label th:text="Catalogy" th:for="listCata1"></label>  
+	            <select th:field="*{cat_id}" class="form-control">
+			        <option value="">Select Catalogy</option>
+			        <option th:each="lcat1 : ${listCata1}"
+			                th:value="${lcat1.id}"
+			                th:text="${lcat1.name}"></option>
+			    </select>
+		    </div>
+            <div style="clear: both; display: block; height: 10px"></div>  
             <div>  
                 <label th:text="Email" th:for="email"></label>  
                 <input type="text" th:field="*{email}" class="form-control" placeholder="Email"/>  

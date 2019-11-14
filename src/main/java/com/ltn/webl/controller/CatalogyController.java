@@ -28,7 +28,7 @@ public class CatalogyController {
 
 	  @RequestMapping(value = "addCatalogy")  
 	  public String addCatalogy(Model model) {  
-	    model.addAttribute("Catalogy", new Catalogy());  
+	    model.addAttribute("catalogy", new Catalogy());  
 	    return "home/catalogy/addCatalogy";  
 	  }  
 

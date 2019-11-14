@@ -7,5 +7,5 @@ import com.ltn.webl.entity.Catalogy;
 
 @Repository
 public interface CatalogyRepository extends CrudRepository<Catalogy, Long> {
-	Catalogy findByName(String name);
+	Catalogy findCatById(Long id);
 }

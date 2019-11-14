@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.ltn.webl.entity.Catalogy;
 import com.ltn.webl.entity.Product;
-import com.ltn.webl.entity.Role;
 import com.ltn.webl.repository.CatalogyRepository;
 import com.ltn.webl.repository.ProductRepository;
 
@@ -19,14 +18,18 @@ import com.ltn.webl.repository.ProductRepository;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired private ProductRepository productRepository;  
-
+	@Autowired private CatalogyRepository catalogyRepository;
+	
 	  @Override  
 	  public List<Product> getAllProduct() {  
 	    return (List<Product>) productRepository.findAll();  
 	  }  
 
 	  @Override  
-	  public void saveProduct(Product product) {  
+	  public void saveProduct(Product product) { 
+		  Catalogy cate = new Catalogy();
+		  cate = catalogyRepository.findCatById(product.getCat_id());
+		  product.setCatalogies(new HashSet<Catalogy>(Arrays.asList(cate)));
 		  productRepository.save(product);  
 	  }  
 

@@ -10,7 +10,7 @@
 <div class="container col-6">  
     <h1>New Product</h1>  
     <div class="col-md-auto">  
-        <form th:object="${product}" th:action="@{saveProduct}" action="#" method="post">  
+        <form th:object="${productForm}" th:action="@{saveProduct}" action="#" method="post" enctype="multipart/form-data">  
             <div>  
                 <label th:text="Name" th:for="name"></label>  
                 <input type="text" th:field="*{name}" class="form-control" placeholder="Name"/>  
@@ -34,7 +34,16 @@
             <div>  
                 <label th:text="Phone" th:for="phone"></label>  
                 <input type="text" th:field="*{phone}" class="form-control" placeholder="Phone"/>  
-            </div>  
+            </div> 
+            <div> 
+				<img th:src="@{|/productForm?id=${productForm.id}|}"
+					width="100" /></td>			
+			<div>
+				<label >Upload Image</label> 
+				<input type="file" th:field="*{fileData}" />
+			</div>
+            
+            </div> 
             <div style="clear: both; display: block; height: 10px"></div>  
             <input type="submit" class="btn btn-success" value="Save"/>  
         </form>  

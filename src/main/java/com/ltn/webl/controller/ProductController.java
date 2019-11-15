@@ -1,8 +1,11 @@
 package com.ltn.webl.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ltn.webl.entity.Catalogy;
@@ -40,9 +44,12 @@ public class ProductController {
 
 	  @RequestMapping(value = "addProduct")  
 	  public String addProduct(Model model) {  
+		 com.ltn.webl.form.ProductForm productForm = new com.ltn.webl.form.ProductForm(new Product());
+		  
 		List<Catalogy> listCata1 = catalogyService.getAllCatalogy();
 		model.addAttribute("listCata1", listCata1);
 	    model.addAttribute("product", new Product());  
+	    model.addAttribute("productForm", productForm); 
 	    return "home/product/addProduct";  
 	  }  
 
@@ -54,7 +61,14 @@ public class ProductController {
 	  }  
 
 	  @RequestMapping(value = "saveProduct", method = RequestMethod.POST)  
-	  public String save(Product product) {  
+	  public String save(Product product, @RequestParam("fileData") MultipartFile fileData) {  
+		try {
+			byte[] image = fileData.getBytes();
+			product.setImage(image);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
 	    productService.saveProduct(product);  
 	    return "redirect:/home/home";  
 	  }  
@@ -64,4 +78,20 @@ public class ProductController {
 	    productService.deleteProduct(productId);  
 	    return "redirect:/home/home";  
 	  }  
+	  
+	  @RequestMapping(value = { "/productImage" }, method = RequestMethod.GET)
+	    public void productImage(HttpServletRequest request, HttpServletResponse response, Model model,
+	            @RequestParam("id") Long id) throws IOException {
+	        Optional<Product> productOp = null;
+	        Product product = null;
+	        if (id != null) {
+	            productOp = productService.findProductById(id);
+	            product = productOp.get();
+	        }
+	        if (product != null && product.getImage() != null) {
+	            response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+	            response.getOutputStream().write(product.getImage());
+	        }
+	        response.getOutputStream().close();
+	    }
 }

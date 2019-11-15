@@ -14,12 +14,14 @@
             <th>Name</th>  
             <th>Email</th>  
             <th>Phone</th>  
+            <th>Image</th>
             <th>Actions</th>  
         </tr>  
         <tr th:each="product : ${products}">  
             <td th:text="${product.name}"></td>  
             <td th:text="${product.email}"></td>  
             <td th:text="${product.phone}"></td>  
+            <td><img th:src="@{|/productImage?id=${product.id}|}" /></td>
             <td>  
                 <a th:href="@{/edit?id={id}(id=${product.id})}" class="btn btn-primary">Edit</a>  
                 <a th:href="@{/delete?id={id}(id=${product.id})}" class="btn btn-danger">Delete</a>  

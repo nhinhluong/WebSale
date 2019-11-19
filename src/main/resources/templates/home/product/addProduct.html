@@ -14,7 +14,11 @@
             <div>  
                 <label th:text="Name" th:for="name"></label>  
                 <input type="text" th:field="*{name}" class="form-control" placeholder="Name"/>  
-            </div>  
+            </div> 
+            <div>  
+                <label th:text="Code" th:for="pcode"></label>  
+                <input type="text" th:field="*{pcode}" class="form-control" placeholder="pcode"/>  
+            </div> 
             <div style="clear: both; display: block; height: 10px"></div>  
             <div>
                 <label th:text="Catalogy" th:for="listCata1"></label>  
@@ -25,15 +29,28 @@
 			                th:text="${lcat1.name}"></option>
 			    </select>
 		    </div>
+		    <div>
+                <label th:text="Type" th:for="listType"></label>  
+	            <select th:field="*{type}" class="form-control">
+			        <option value="">Select Type</option>
+			        <option th:value="A" th:text="A"></option>
+			        <option th:value="B" th:text="B"></option>
+			        <option th:value="C" th:text="C"></option>
+			    </select>
+		    </div>
             <div style="clear: both; display: block; height: 10px"></div>  
             <div>  
-                <label th:text="Email" th:for="email"></label>  
-                <input type="text" th:field="*{email}" class="form-control" placeholder="Email"/>  
+                <label th:text="Quantity" th:for="quantity"></label>  
+                <input type="text" th:field="*{quantity}" class="form-control" placeholder="quantity"/>  
             </div>  
             <div style="clear: both; display: block; height: 10px"></div>  
             <div>  
-                <label th:text="Phone" th:for="phone"></label>  
-                <input type="text" th:field="*{phone}" class="form-control" placeholder="Phone"/>  
+                <label th:text="Price" th:for="price"></label>  
+                <input type="text" th:field="*{price}" class="form-control" placeholder="price"/>  
+            </div> 
+            <div>  
+                <label th:text="Description" th:for="description"></label>  
+                <input type="text" th:field="*{description}" class="form-control" placeholder="description"/>  
             </div> 
             <div> 
 				<img th:src="@{|/productForm?id=${productForm.id}|}"

@@ -18,10 +18,16 @@ public class ProductForm {
     private MultipartFile fileData;
 	private Long id;
 	private String name;
-	private String email;
-	private String phone;
+	private String pcode;
+	private int quantity;
+	private String type;
+	private Double price;
+	private String description;
+	private int isAvailable;
 	private Set<Catalogy> productCate;
 	private Long cat_id;
+	
+	private byte [] productImage;
 	
 	public ProductForm() {
         this.newProduct= true;
@@ -31,10 +37,15 @@ public class ProductForm {
 		//this.fileData = fileData;
 		this.id = product.getId();
 		this.name = product.getName();
-		this.email = product.getEmail();
-		this.phone = product.getPhone();
+		this.pcode = product.getPcode();
+		this.type = product.getType();
+		this.quantity = product.getQuantity();
+		this.price = product.getPrice();
+		this.description = product.getDescription();
+		this.isAvailable = product.getIsAvailable();
 		this.cat_id = product.getCat_id();
 		this.productCate = product.getCatalogies();
+		this.productImage = product.getImage();
 	}
 
 	
@@ -71,20 +82,60 @@ public class ProductForm {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public boolean isNewProduct() {
+		return newProduct;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setNewProduct(boolean newProduct) {
+		this.newProduct = newProduct;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getPcode() {
+		return pcode;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPcode(String pcode) {
+		this.pcode = pcode;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getIsAvailable() {
+		return isAvailable;
+	}
+
+	public void setIsAvailable(int isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 
 	public Long getCat_id() {
@@ -94,6 +145,16 @@ public class ProductForm {
 	public void setCat_id(Long cat_id) {
 		this.cat_id = cat_id;
 	}
+
+	public byte[] getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(byte[] productImage) {
+		this.productImage = productImage;
+	}
+	
+	
 	
 	
 

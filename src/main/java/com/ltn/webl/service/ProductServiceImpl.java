@@ -27,8 +27,8 @@ import com.ltn.webl.repository.ProductRepository;
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
 
-	//@Autowired
-    private SessionFactory sessionFactory;
+	// @Autowired
+	private SessionFactory sessionFactory;
 	// Upload file.
 	private MultipartFile fileData;
 
@@ -61,37 +61,41 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
-    public void save(ProductForm productForm) {
-        Session session = this.sessionFactory.getCurrentSession();
-        //Long id = productForm.getId();
- 
-        Product product = null;
-        Catalogy cate = new Catalogy();
+	public void save(ProductForm productForm) {
+		Session session = this.sessionFactory.getCurrentSession();
+		// Long id = productForm.getId();
+
+		Product product = null;
+		Catalogy cate = new Catalogy();
 		cate = catalogyRepository.findCatById(product.getCat_id());
 		product.setCatalogies(new HashSet<Catalogy>(Arrays.asList(cate)));
-        product.setId(productForm.getId());
-        product.setName(productForm.getName());
-        product.setEmail(productForm.getEmail());
-        product.setPhone(productForm.getPhone());
- 
-        if (productForm.getFileData() != null) {
-            byte[] image = null;
-            try {
-                image = productForm.getFileData().getBytes();
-            } catch (IOException e) {
-            }
-            if (image != null && image.length > 0) {
-                product.setImage(image);
-            }
-        }
-        // Nếu có lỗi tại DB, ngoại lệ sẽ ném ra ngay lập tức
-        session.flush();
-    }
+		product.setId(productForm.getId());
+		product.setName(productForm.getName());
+		product.setPcode(productForm.getPcode());
+		product.setType(productForm.getType());
+		product.setQuantity(productForm.getQuantity());
+		product.setPrice(productForm.getPrice());
+		product.setDescription(productForm.getDescription());
+		product.setIsAvailable(1);
+		if (productForm.getFileData() != null) {
+			byte[] image = null;
+			try {
+				image = productForm.getFileData().getBytes();
+			} catch (IOException e) {
+			}
+			if (image != null && image.length > 0) {
+				product.setImage(image);
+			}
+		}
 
-//	@Override
-//	public Product findProbyId(Long id) {
-//		// TODO Auto-generated method stub
-//		return productRepository.findProbyId(id);
-//	}
- 
+		// Nếu có lỗi tại DB, ngoại lệ sẽ ném ra ngay lập tức
+		session.flush();
+	}
+
+	// @Override
+	// public Product findProbyId(Long id) {
+	// // TODO Auto-generated method stub
+	// return productRepository.findProbyId(id);
+	// }
+
 }

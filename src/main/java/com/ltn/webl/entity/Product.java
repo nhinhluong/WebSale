@@ -29,11 +29,23 @@ public class Product {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "email")
-	private String email;
+	@Column(name = "pcode")
+	private String pcode;
 
-	@Column(name = "phone")
-	private String phone;
+	@Column(name = "quantity")
+	private int quantity;
+	
+	@Column(name = "type")
+	private String type;
+	
+	@Column(name = "price")
+	private Double price;
+	
+	@Column(length = 65535, columnDefinition="TEXT", name = "description")
+	private String description; 
+	
+	@Column(name = "isAvailable")
+	private int isAvailable;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "catalogy_product", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "cat_id"))
@@ -48,26 +60,17 @@ public class Product {
 	
 	public Product() {
 	}
-
-	public Product(String name, String email, String phone) {
-		this.name = name;
-		this.email = email;
-		this.phone = phone;
-	}
-
-	public Product(String name, String email, String phone, Set<Catalogy> catalogies) {
+	
+	public Product(String name, String pcode, int quantity, String type, Double price, String description,
+			int isAvailable, Set<Catalogy> catalogies, Long cat_id, byte[] image) {
 		super();
 		this.name = name;
-		this.email = email;
-		this.phone = phone;
-		this.catalogies = catalogies;
-	}
-
-	public Product(String name, String email, String phone, Set<Catalogy> catalogies, Long cat_id, byte[] image) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.phone = phone;
+		this.pcode = pcode;
+		this.quantity = quantity;
+		this.type = type;
+		this.price = price;
+		this.description = description;
+		this.isAvailable = isAvailable;
 		this.catalogies = catalogies;
 		this.cat_id = cat_id;
 		this.image = image;
@@ -97,20 +100,52 @@ public class Product {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getPcode() {
+		return pcode;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPcode(String pcode) {
+		this.pcode = pcode;
 	}
 
-	public String getPhone() {
-		return phone;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getIsAvailable() {
+		return isAvailable;
+	}
+
+	public void setIsAvailable(int isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 
 	public Set<Catalogy> getCatalogies() {

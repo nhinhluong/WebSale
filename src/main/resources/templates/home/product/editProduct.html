@@ -2,32 +2,79 @@
 <html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">  
 <head>  
     <meta charset="UTF-8">  
-    <title>Edit User</title>  
-    <link type="text/css" rel="stylesheet" href="bootstrap.min.css" th:href="@{bootstrap.min.css}"/>  
+    <title>Add User</title>  
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" type="text/css" th:href="@{/css/product.css}" />
+<script th:src="@{/js/product.js}"></script>
 </head>  
 <body>  
 <div class="col-3"></div>  
 <div class="container col-6">  
-    <h1>Edit User</h1>  
-    <form th:object="${product}" th:action="@{save}" action="#" method="post">  
-        <input type="hidden" th:field="*{id}">  
-        <div>  
-            <label th:text="Name" th:for="name"></label>  
-            <input type="text" th:field="*{name}" class="form-control"/>  
-        </div>  
-        <div style="clear: both; display: block; height: 10px"></div>  
-        <div>  
-            <label th:text="Email" th:for="email"></label>  
-            <input type="text" th:field="*{email}" class="form-control"/>  
-        </div>  
-        <div style="clear: both; display: block; height: 10px"></div>  
-        <div>  
-            <label th:text="Phone" th:for="phone"></label>  
-            <input type="text" th:field="*{phone}" class="form-control"/>  
-        </div>  
-        <div style="clear: both; display: block; height: 10px"></div>  
-        <input type="submit" class="btn btn-success" value="Save"/>  
-    </form>  
+    <h1>New Product</h1>  
+    <div class="col-md-auto">  
+        <form th:object="${productForm}" th:action="@{/update/{id}(id=${productForm.id})}" action="#" method="post" enctype="multipart/form-data">  
+            <div>  
+                <label th:text="Id" th:for="id"></label>  
+                <input type="text" th:field="*{id}" class="form-control" placeholder="ID"/>  
+            </div> 
+            <div>  
+                <label th:text="Name" th:for="name"></label>  
+                <input type="text" th:field="*{name}" class="form-control" placeholder="Name"/>  
+            </div>  
+            <div style="clear: both; display: block; height: 10px"></div>  
+            
+            <div>  
+                <label th:text="pcode" th:for="pcode"></label>  
+                <input type="text" th:field="*{pcode}" class="form-control" placeholder="pcode"/>  
+            </div> 
+            <div>
+                <label th:text="Catalogy" th:for="listCata1"></label>  
+	            <select th:field="*{cat_id}" class="form-control">
+			        <option value="">Select Catalogy</option>
+			        <option th:each="lcat1 : ${listCata1}"
+			                th:value="${lcat1.id}"
+			                th:text="${lcat1.name}"></option>
+			    </select>
+		    </div> 
+		    <div>  
+                <label th:text="Type" th:for="type"></label>  
+                <input type="text" th:field="*{type}" class="form-control" placeholder="type"/>  
+            </div> 
+            <div style="clear: both; display: block; height: 10px"></div>  
+            <div>  
+                <label th:text="Quantity" th:for="quantity"></label>  
+                <input type="text" th:field="*{quantity}" class="form-control" placeholder="quantity"/>  
+            </div> 
+            <div style="clear: both; display: block; height: 10px"></div>  
+            <div>  
+                <label th:text="Price" th:for="price"></label>  
+                <input type="text" th:field="*{price}" class="form-control" placeholder="price"/>  
+            </div>
+            <div style="clear: both; display: block; height: 10px"></div>
+            <div>  
+                <label th:text="Description" th:for="description"></label>  
+                <input type="text" th:field="*{description}" class="form-control" placeholder="description"/>  
+            </div>
+            <div style="clear: both; display: block; height: 10px"></div>              
+            <div class="img-event">  
+                <img class="group list-group-image img-fluid"
+						th:src="@{|/productImage?id=${productForm.id}|}" alt="" /> 
+            </div> 
+            <div> 
+				<img th:src="@{|/productForm?id=${productForm.id}|}"
+					width="100" /></td>			
+			<div>
+				<label >Upload Image</label> 
+				<input type="file" th:field="*{fileData}" />
+			</div>
+            
+            </div> 
+            <div style="clear: both; display: block; height: 10px"></div>  
+            <input type="submit" class="btn btn-success" value="Save"/>  
+        </form>  
+    </div>  
 </div>  
 </body>  
 </html>

@@ -32,15 +32,17 @@
 				</div>
 				<div class="caption card-body">
 					<h4 class="group card-title inner list-group-item-heading" th:text="${product.name}"></h4>
-					<p class="group inner list-group-item-text">Product
-						description... Lorem ipsum dolor sit amet, consectetuer adipiscing
-						elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-						magna aliquam erat volutpat.</p>
+					<p class="group inner list-group-item-text" th:text="${product.description}"></p>
 					<div class="row">
-						<div class="col-xs-12 col-md-6">
-							<p class="lead">$21.000</p>
+						<div class="col-xs-12 col-md-12">
+							<div class="col-xs-6 col-md-6">
+								<p class="price" th:text="${product.price}"></p>
+							</div>
+							<div class="col-xs-6 col-md-6">
+								<p class="quantity" th:text="${product.quantity}"></p>
+							</div>
 						</div>
-						<div class="col-xs-12 col-md-6">
+						<div class="col-xs-12 col-md-12">
 							<a class="btn btn-success" th:href="${'/productDetail/' + product.id}">Xem chi tiết</a>
 							<a class="btn btn-success" th:href="${'/product/edit/' + product.id}">Edit</a>
 						</div>

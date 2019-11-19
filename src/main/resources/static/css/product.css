@@ -6,6 +6,15 @@
     padding-left: 0;
     margin-bottom: 0;
 }
+.price {
+  left: 2px;
+  font-size: 14px;
+}
+.quantity {
+  position: absolute;
+  right: 2px;
+  font-size: 14px;
+}
 .thumbnail
 {
     margin-bottom: 30px;

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">  
 <head>  
     <meta charset="UTF-8">  
-    <title>Add User</title>  
+    <title>Edit Product</title>  
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -12,7 +12,7 @@
 <body>  
 <div class="col-3"></div>  
 <div class="container col-6">  
-    <h1>New Product</h1>  
+    <h1>Chỉnh sửa Sản Phẩm</h1>  
     <div class="col-md-auto">  
         <form th:object="${productForm}" th:action="@{/update/{id}(id=${productForm.id})}" action="#" method="post" enctype="multipart/form-data">  
             <div>  

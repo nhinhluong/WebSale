@@ -41,7 +41,7 @@ public class ProductController {
 	    List<Product> products = productService.getAllProduct();  
 	    model.addAttribute("products", products);  
 
-	    return "home/home";  
+	    return "home/homepage";  
 	  }  
 
 	  @RequestMapping(value = "addProduct")  
@@ -72,6 +72,9 @@ public class ProductController {
 	    public String showProduct(@PathVariable("id") Long id, Model model){
 		   Optional<Product> productEdit = productService.findProductById(id);
 		   Product product = productEdit.get();
+		   List<Catalogy> catalogys = catalogyService.getAllCatalogy();  
+
+		    model.addAttribute("catalogys", catalogys); 
 	        model.addAttribute("product", product);
 	        return "home/product/productDetail";
 	    }

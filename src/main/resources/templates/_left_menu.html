@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Home</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet">
+</head>
+<body>
+	<h1 class="my-4">NÔNG SẢN VIỆT</h1>
+	<div class="list-group" th:each="catalogy : ${catalogys}">
+		<a href="#" class="list-group-item" th:text="${catalogy.name}"></a>
+	</div>
+</body>

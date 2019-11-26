@@ -44,6 +44,9 @@ public class Product {
 	@Column(length = 65535, columnDefinition="TEXT", name = "description")
 	private String description; 
 	
+	@Column(length = 65535, columnDefinition="TEXT", name = "shortdesc")
+	private String shortdesc; 
+	
 	@Column(name = "isAvailable")
 	private int isAvailable;
 
@@ -61,7 +64,7 @@ public class Product {
 	public Product() {
 	}
 	
-	public Product(String name, String pcode, int quantity, String type, Double price, String description,
+	public Product(String name, String pcode, int quantity, String type, Double price, String description,String shortdesc,
 			int isAvailable, Set<Catalogy> catalogies, Long cat_id, byte[] image) {
 		super();
 		this.name = name;
@@ -70,6 +73,7 @@ public class Product {
 		this.type = type;
 		this.price = price;
 		this.description = description;
+		this.shortdesc = shortdesc;
 		this.isAvailable = isAvailable;
 		this.catalogies = catalogies;
 		this.cat_id = cat_id;
@@ -138,6 +142,14 @@ public class Product {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getShortdesc() {
+		return shortdesc;
+	}
+
+	public void setShortdesc(String shortdesc) {
+		this.shortdesc = shortdesc;
 	}
 
 	public int getIsAvailable() {

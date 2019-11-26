@@ -56,7 +56,7 @@ body {
     margin:10px 10px 10px 0px;
     padding: 5px;
 }
-  
+
 .container  {
     margin: 5px 0px;
 }
@@ -139,8 +139,8 @@ ul {
 table td {
     padding: 5px;
 }
-img{max-width:100%;}
-	*{transition: all .5s ease;-moz-transition: all .5s ease;-webkit-transition: all .5s ease}
+/* img{max-width:100%;}
+	*{transition: all .5s ease;-moz-transition: all .5s ease;-webkit-transition: all .5s ease} */
 .my-list {
     width: 100%;
     padding: 10px;
@@ -231,17 +231,28 @@ img {
   overflow: hidden; }
   .tab-content img {
     width: 100%;
-    -webkit-animation-name: opacity;
+ /*    -webkit-animation-name: opacity;
             animation-name: opacity;
     -webkit-animation-duration: .3s;
-            animation-duration: .3s; }
+            animation-duration: .3s; */ }
 
 .card {
-  margin-top: 50px;
+  margin-top: 5px;
   background: #eee;
-  padding: 3em;
+  padding: 0.2em;
   line-height: 1.5em; }
-
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}  
+.card-title {
+	font-size: large;
+	font-weight: bold;
+} 
+.card-text {
+	font-size: large;
+}
 @media screen and (min-width: 997px) {
   .wrapper {
     display: -webkit-box;
@@ -301,8 +312,8 @@ img {
   text-transform: UPPERCASE;
   font-weight: bold;
   color: #fff;
-  -webkit-transition: background .3s ease;
-          transition: background .3s ease; }
+  /* -webkit-transition: background .3s ease;
+          transition: background .3s ease; */ }
   .add-to-cart:hover, .like:hover {
     background: #b36800;
     color: #fff; }

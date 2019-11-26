@@ -23,6 +23,7 @@ public class ProductForm {
 	private String type;
 	private Double price;
 	private String description;
+	private String shortdesc;
 	private int isAvailable;
 	private Set<Catalogy> productCate;
 	private Long cat_id;
@@ -42,6 +43,7 @@ public class ProductForm {
 		this.quantity = product.getQuantity();
 		this.price = product.getPrice();
 		this.description = product.getDescription();
+		this.shortdesc = product.getShortdesc();
 		this.isAvailable = product.getIsAvailable();
 		this.cat_id = product.getCat_id();
 		this.productCate = product.getCatalogies();
@@ -128,6 +130,14 @@ public class ProductForm {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getShortdesc() {
+		return shortdesc;
+	}
+
+	public void setShortdesc(String shortdesc) {
+		this.shortdesc = shortdesc;
 	}
 
 	public int getIsAvailable() {

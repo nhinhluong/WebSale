@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ltn.webl.entity.Catalogy;
 import com.ltn.webl.entity.Product;
 import com.ltn.webl.entity.Role;
 import com.ltn.webl.entity.User;
+import com.ltn.webl.service.CatalogyService;
 import com.ltn.webl.service.ProductService;
 import com.ltn.webl.service.RoleService;
 import com.ltn.webl.service.UserService;
@@ -31,6 +33,8 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired private ProductService productService;  
+	
+	@Autowired private CatalogyService catalogyService;
 	
 	@Autowired private RoleService roleService;
 
@@ -81,7 +85,9 @@ public class UserController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		List<Product> products = productService.getAllProduct();  
+		List<Catalogy> catalogys = catalogyService.getAllCatalogy();  
 
+	    model.addObject("catalogys", catalogys); 
 	    model.addObject("products", products); 
 		model.addObject("userName", user.getFirstname() + " " + user.getLastname());
 		model.setViewName("home/home");

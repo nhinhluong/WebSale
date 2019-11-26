@@ -76,6 +76,7 @@ public class ProductServiceImpl implements ProductService {
 		product.setQuantity(productForm.getQuantity());
 		product.setPrice(productForm.getPrice());
 		product.setDescription(productForm.getDescription());
+		product.setShortdesc(productForm.getShortdesc());
 		product.setIsAvailable(1);
 		if (productForm.getFileData() != null) {
 			byte[] image = null;

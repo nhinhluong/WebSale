@@ -57,13 +57,6 @@
     margin: 0;
 }
 
-.item.list-group-item:before, .item.list-group-item:after
-{
-    display: table;
-    content: " ";
-}
 
-.item.list-group-item:after
-{
-    clear: both;
-}
+ 
+  

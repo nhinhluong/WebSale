@@ -93,10 +93,10 @@ public class ProductServiceImpl implements ProductService {
 		session.flush();
 	}
 
-	// @Override
-	// public Product findProbyId(Long id) {
-	// // TODO Auto-generated method stub
-	// return productRepository.findProbyId(id);
-	// }
+	@Override
+	public List<Product> findProductByCatalogy(Long cat_id) {
+		// TODO Auto-generated method stub
+		return productRepository.findProductByCat(cat_id);
+	}
 
 }

@@ -2,22 +2,25 @@
 <html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">  
 <head>  
     <meta charset="UTF-8">  
-    <title>Add Catalogy</title>  
-    <link type="text/css" rel="stylesheet" href="bootstrap.min.css" th:href="@{bootstrap.min.css}"/>  
-</head>  
+    <title>Thêm mới danh mục sản phẩm</title>  
+    <link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" type="text/css" th:href="@{/css/product.css}" />
+</head>   
 <body>  
 <div class="col-3"></div>  
 <div class="container col-6">  
-    <h1>New Catalogy</h1>  
+    <h1>Thêm mới danh mục SP</h1>  
     <div class="col-md-auto">  
         <form th:object="${catalogy}" th:action="@{saveCatalogy}" action="#" method="post">  
             <div>  
-                <label th:text="Name" th:for="name"></label>  
+                <label th:text="Tên danh mục:" th:for="name"></label>  
                 <input type="text" th:field="*{name}" class="form-control" placeholder="Name"/>  
             </div>  
             <div style="clear: both; display: block; height: 10px"></div>  
             <div>  
-                <label th:text="Level" th:for="level"></label>  
+                <label th:text="Nhánh:" th:for="level"></label>  
                 <input type="text" th:field="*{level}" class="form-control" placeholder="Level"/>  
             </div>  
             <div style="clear: both; display: block; height: 10px"></div>  

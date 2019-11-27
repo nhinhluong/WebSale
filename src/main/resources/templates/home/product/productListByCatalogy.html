@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
- xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head>
- <title>Trang chủ</title>
+<title>Home</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet">
 </head>
 <body>
- <th:block th:include="/_header"></th:block>
+	<th:block th:include="/_header"></th:block>
 	<div class="container">
 
 		<div class="row" style="margin-bottom: 3%;">
@@ -57,9 +52,32 @@
 						class="sr-only">Next</span>
 					</a>
 				</div>
+				<!-- view product by catalogy-->
+				<div class="container">
+					<div id="products" class="row">
+						<div class="col-xs-4 col-lg-4" th:each="product : ${products}">
+							<div class="h-100 card">
+								<a th:href="${'/productDetail/' + product.id}"><img
+									class="card-img-top"
+									th:src="@{|/productImage?id=${product.id}|}" alt="" /></a>
+								<div class="card-body">
+									<h4 class="card-title">
+										<a th:href="${'/productDetail/' + product.id}"
+											th:text="${product.name}"></a>
+									</h4>
+									<h5 th:text="${product.price}"></h5>
+									<p class="card-text" th:text="${product.shortdesc}"></p>
+								</div>
+								<div class="card-footer">
+									<a class="btn btn-success"
+										th:href="${'/product/edit/' + product.id}">Chỉnh sửa</a>
+								</div>
+							</div>
+						</div>
 
-				<th:block th:include="/home/product/productListView"></th:block>
-				
+					</div>
+				</div>
+
 			</div>
 			<!-- /.col-lg-9 -->
 
@@ -72,7 +90,7 @@
 		<th:block th:include="/_footer"></th:block>
 	</footer>
 	<script src="vendor/jquery/jquery.min.js"></script>
-  	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

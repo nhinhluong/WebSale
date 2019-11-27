@@ -17,6 +17,6 @@ public interface ProductService {
 
 	  Optional<Product> findProductById(Long id); 
 	  
-	  //Product findProbyId(Long id);
+	  List<Product> findProductByCatalogy(Long cat_id);
 
 }

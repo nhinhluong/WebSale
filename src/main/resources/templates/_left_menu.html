@@ -8,8 +8,8 @@
 	rel="stylesheet">
 </head>
 <body>
-	<h1 class="my-4">NÔNG SẢN VIỆT</h1>
+	<h3 class="my-4">NÔNG SẢN VIỆT</h3>
 	<div class="list-group" th:each="catalogy : ${catalogys}">
-		<a href="#" class="list-group-item" th:text="${catalogy.name}"></a>
+		<a th:href="${'/findByCatalogy/' + catalogy.id}" class="list-group-item" th:text="${catalogy.name}"></a>
 	</div>
 </body>

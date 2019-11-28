@@ -38,7 +38,7 @@ public class UserController {
 	
 	@Autowired private RoleService roleService;
 
-	@RequestMapping(value = {"/","/login" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/login" }, method = RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView model = new ModelAndView();
 
@@ -79,18 +79,25 @@ public class UserController {
 		return model;
 	}
 
-	@RequestMapping(value = { "/home/home" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/user/home","/"}, method = RequestMethod.GET)
 	public ModelAndView home() {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
+	/*	System.out.println("xacthuc1: "+auth.toString());
+		System.out.println("xacthuc2: "+auth.getCredentials().toString());
+		System.out.println("xacthuc3: "+auth.getName().toString());
+		System.out.println("xacthuc4: "+auth.getPrincipal().toString());
+		System.out.println("xacthuc5: "+auth.isAuthenticated());
+		System.out.println("xacthuc1is: "+auth.getAuthorities());*/
+		
+		//User user = null;
 		List<Product> products = productService.getAllProduct();  
 		List<Catalogy> catalogys = catalogyService.getAllCatalogy();  
 
 	    model.addObject("catalogys", catalogys); 
 	    model.addObject("products", products); 
-		model.addObject("userName", user.getFirstname() + " " + user.getLastname());
-		model.setViewName("home/home");
+		//model.addObject("userName", user.getFirstname() + " " + user.getLastname());
+		model.setViewName("user/homepage");
 		return model;
 	}
 

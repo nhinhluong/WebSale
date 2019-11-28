@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title th:text="${product.name}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+<link th:href="@{/css/easy-responsive-tabs.css}" rel="stylesheet" type="text/css" media="all" />
+<link th:href="@{/css/global.css}" rel="stylesheet" type="text/css" media="all" />
+
+<script type="text/javascript" th:src="@{/js/jquery-1.7.2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+<script type="text/javascript" th:src="@{/js/easing.js}"></script>
+<script type="text/javascript" th:src="@{/js/easyResponsiveTabs.js}"></script>
+<script type="text/javascript" th:src="@{/js/slides.min.jquery.js}"></script>
+
+</head>
+<script>
+	$(function() {
+		$('#products').slides({
+			preload : true,
+			preloadImage : 'img/loading.gif',
+			effect : 'slide, fade',
+			crossfade : true,
+			slideSpeed : 350,
+			fadeSpeed : 500,
+			generateNextPrev : true,
+			generatePagination : false
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<!-- header description -->
+			<th:block th:include="/root/_headertop_desc"></th:block>
+			<!-- header top/logo -->
+			<th:block th:include="/root/_header_logo"></th:block>
+			<!-- header bottom -->
+			<th:block th:include="/root/_header_bottom"></th:block>
+		</div>
+		<div class="main">
+			<div class="content">
+				<div class="content_top">
+					<div class="back-links">
+						<p>
+							<a href="/">Trang chủ</a> >>>> <a href="#"><span th:text="${product.name}"></span></a>
+						</p>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="section group">
+					<div class="cont-desc span_1_of_2">
+						<div class="product-details">
+								<div id="container">
+									<div id="products_example">
+												<div class="slider col-md-10 col-xs-10">
+													<input type="radio" name="slide_switch" id="id1"/>
+													<label for="id1">
+														<img th:src="@{|/productImage?id=${product.id}|}"  width="150"/>
+													</label>
+													<img th:src="@{|/productImage?id=${product.id}|}" />
+													
+													<!--Lets show the second image by default on page load-->
+													<input type="radio" name="slide_switch" id="id2" checked="checked"/>
+													<label for="id2">
+														<img th:src="@{|/productImage?id=${product.id}|}"  width="150"/>
+													</label>
+													<img th:src="@{|/productImage?id=${product.id}|}" />
+																																						
+											</div>
+									</div>
+							</div>
+							<div class="desc span_3_of_2">
+								<h2 th:text="${product.name}"></h2>
+								<p th:text="${product.shortdesc}"></p>
+								<div class="price">
+									<p>
+										Giá: <span th:text="${product.price}"></span>
+									</p>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="product_desc">
+							<div id="horizontalTab">
+								<ul class="resp-tabs-list">
+									<li>Chi tiết sản phẩm</li>
+									<li>Reviews</li>
+									<div class="clear"></div>
+								</ul>
+								<div class="resp-tabs-container">
+									<div class="product-desc">
+										<p th:text="${product.description}"></p>										
+									</div>
+
+									<div class="review">
+										<h4>
+											<span th:text="${product.name}"></span> Review by <a href="#">LTN</a>
+										</h4>
+										<ul>
+											<li>Giá bán :<a href="#"><img
+													th:src="@{/img/price-rating.png}" alt="" /></a></li>
+											<li>Giá trị :<a href="#"><img
+													th:src="@{/img/value-rating.png}" alt="" /></a></li>
+											<li>Chất lượng :<a href="#"><img
+													th:src="@{/img/quality-rating.png}" alt="" /></a></li>
+										</ul>
+										<p th:text="${product.description}"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<script type="text/javascript">
+							$(document).ready(function() {
+								$('#horizontalTab').easyResponsiveTabs({
+									type : 'default', //Types: default, vertical, accordion           
+									width : 'auto', //auto or any width like 600px
+									fit : true
+								// 100% fit in a container
+								});
+							});
+						</script>
+					</div>
+					<div class="rightsidebar span_3_of_1">
+						<th:block th:include="/home/catalogy/catalogyList"></th:block>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<div class="wrap">
+			<div class="section group">
+				<div class="col_1_of_4 span_1_of_4">
+					<h4>Information</h4>
+					<ul>
+						<li><a href="about.html">About Us</a></li>
+						<li><a href="contact.html">Customer Service</a></li>
+						<li><a href="#">Advanced Search</a></li>
+						<li><a href="delivery.html">Orders and Returns</a></li>
+						<li><a href="contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+				<div class="col_1_of_4 span_1_of_4">
+					<h4>Why buy from us</h4>
+					<ul>
+						<li><a href="about.html">About Us</a></li>
+						<li><a href="contact.html">Customer Service</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="contact.html">Site Map</a></li>
+						<li><a href="#">Search Terms</a></li>
+					</ul>
+				</div>
+				<div class="col_1_of_4 span_1_of_4">
+					<h4>My account</h4>
+					<ul>
+						<li><a href="contact.html">Sign In</a></li>
+						<li><a href="index.html">View Cart</a></li>
+						<li><a href="#">My Wishlist</a></li>
+						<li><a href="#">Track My Order</a></li>
+						<li><a href="contact.html">Help</a></li>
+					</ul>
+				</div>
+				<div class="col_1_of_4 span_1_of_4">
+					<h4>Contact</h4>
+					<ul>
+						<li><span>+91-123-456789</span></li>
+						<li><span>+00-123-000000</span></li>
+					</ul>
+					<div class="social-icons">
+						<h4>Follow Us</h4>
+						<ul>
+							<li><a href="#" target="_blank"><img
+									src="images/facebook.png" alt="" /></a></li>
+							<li><a href="#" target="_blank"><img
+									src="images/twitter.png" alt="" /></a></li>
+							<li><a href="#" target="_blank"><img
+									src="images/skype.png" alt="" /> </a></li>
+							<li><a href="#" target="_blank"> <img
+									src="images/dribbble.png" alt="" /></a></li>
+							<li><a href="#" target="_blank"> <img
+									src="images/linkedin.png" alt="" /></a></li>
+							<div class="clear"></div>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="copy_right">
+			<p>
+				&copy; 2013 home_shoppe. All rights reserved | Design by <a
+					href="http://w3layouts.com/">W3layouts</a>
+			</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$().UItoTop({
+				easingType : 'easeOutQuart'
+			});
+
+		});
+	</script>
+	<a href="#" id="toTop"><span id="toTopHover"> </span></a>
+</body>
+</html>
+

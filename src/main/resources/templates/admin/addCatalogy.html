@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">  
 <head>  
     <meta charset="UTF-8">  
-    <title>Thêm mới danh mục sản phẩm</title>  
+    <title>Thêm mới danh mục</title>  
     <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -15,13 +15,13 @@
     <div class="col-md-auto">  
         <form th:object="${catalogy}" th:action="@{saveCatalogy}" action="#" method="post">  
             <div>  
-                <label th:text="Tên danh mục:" th:for="name"></label>  
-                <input type="text" th:field="*{name}" class="form-control" placeholder="Name"/>  
+                <label>Tên</label>  
+                <input type="text" th:field="*{name}" class="form-control" placeholder="tên"/>  
             </div>  
             <div style="clear: both; display: block; height: 10px"></div>  
             <div>  
-                <label th:text="Nhánh:" th:for="level"></label>  
-                <input type="text" th:field="*{level}" class="form-control" placeholder="Level"/>  
+                <label>Nhóm</label>  
+                <input type="text" th:field="*{level}" class="form-control" placeholder="nhóm"/>  
             </div>  
             <div style="clear: both; display: block; height: 10px"></div>  
             <div style="clear: both; display: block; height: 10px"></div>  

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>NÔNG SẢN SẠCH</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" media="all" />
+<link th:href="@{/css/slider.css}" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" th:src="@{/js/jquery-1.7.2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+<script type="text/javascript" th:src="@{/js/easing.js}"></script>
+<script type="text/javascript" th:src="@{/js/startstop-slider.js}"></script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<!-- header description -->
+			<th:block th:include="/root/_headertop_desc"></th:block>			
+			<!-- header top/logo -->
+			<th:block th:include="/root/_header_logo"></th:block>
+			<!-- header bottom -->
+			<th:block th:include="/root/_header_bottom"></th:block>	
+			<!-- header slider -->
+			<th:block th:include="/root/_header_slider"></th:block>
+		</div>
+		<div class="main">
+			<div class="content">
+				<div class="content_top">
+					<div class="heading">
+						<h3>Nông sản mới nhất</h3>
+					</div>
+					<div class="see">
+						<p>
+							<a href="#">See all Products</a>
+						</p>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div id="products" class="section group">
+					<div class="grid_1_of_4 images_1_of_4 " th:each="product : ${products}">
+						<a th:href="${'/productDetail/' + product.id}"><img width="320" height="180" th:src="@{|/productImage?id=${product.id}|}" alt="" /></a>
+						<h2><a th:href="${'/productDetail/' + product.id}" th:text="${product.name}"></a></h2>
+						<div class="price-details">
+							<div>
+								<p class="card-text" th:text="${product.shortdesc}"></p>
+							</div>
+							<div class="price-number">
+								<p>
+									<span class="rupees" th:text="${product.price}"></span>
+								</p>
+							</div>
+							<div class="add-cart">
+								<div>
+									<th:block th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+										<a th:href="${'/product/edit/' + product.id}">Chỉnh sửa</a>
+									</th:block>
+									<a th:href="${'/productDetail/' + product.id}">Xem thêm</a>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+	<th:block th:include="/root/_footer"></th:block>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$().UItoTop({
+				easingType : 'easeOutQuart'
+			});
+
+		});
+	</script>
+	<a href="#" id="toTop"><span id="toTopHover"> </span></a>
+</body>
+</html>

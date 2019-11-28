@@ -11,6 +11,8 @@ import javax.validation.Valid;
 
 import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,23 +33,27 @@ import com.ltn.webl.form.ProductForm;
 import com.ltn.webl.service.CatalogyService;
 import com.ltn.webl.service.ProductService;
 import com.ltn.webl.service.RoleService;
+import com.ltn.webl.service.UserService;
 
 @Controller
 public class ProductController {
 	@Autowired
 	private ProductService productService;
-
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private CatalogyService catalogyService;
 
-	@RequestMapping("/home")
+	@RequestMapping(value={"/productList"}, method = RequestMethod.GET)
 	public String index(Model model) {
+		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//User user = userService.findUserByEmail(auth.getName());
 		List<Catalogy> catalogys = catalogyService.getAllCatalogy();  
 		List<Product> products = productService.getAllProduct();
 		model.addAttribute("catalogys", catalogys);
 		model.addAttribute("products", products);
-
-		return "home/homepage";
+		//model.addAttribute("userName", user.getFirstname() + " " + user.getLastname());
+		return "admin/product/productListView";
 	}
 
 	@RequestMapping("findByCatalogy/{id}")
@@ -69,7 +75,7 @@ public class ProductController {
 		model.addAttribute("listCata1", listCata1);
 		model.addAttribute("product", new Product());
 		model.addAttribute("productForm", productForm);
-		return "home/product/addProduct";
+		return "admin/addProduct";
 	}
 
 	@RequestMapping("product/edit/{id}")
@@ -82,7 +88,19 @@ public class ProductController {
 		model.addAttribute("product", product);
 		model.addAttribute("listCata1", listCata1);
 		model.addAttribute("productForm", productForm);
-		return "home/product/editProduct";
+		return "admin/editProduct";
+	}
+	
+	@RequestMapping("product/delete/{id}")
+	public String delete(Model model, @PathVariable("id") Long id) {		
+		productService.deleteProduct(id);
+		
+		List<Catalogy> catalogys = catalogyService.getAllCatalogy();  
+		List<Product> products = productService.getAllProduct();
+		model.addAttribute("catalogys", catalogys);
+		model.addAttribute("products", products);
+		
+		return "admin/product/productListView";
 	}
 
 	@RequestMapping("productDetail/{id}")
@@ -93,7 +111,7 @@ public class ProductController {
 
 		model.addAttribute("catalogys", catalogys);
 		model.addAttribute("product", product);
-		return "home/product/productDetail";
+		return "user/product/detail";
 	}
 
 	@PostMapping("/update/{id}")
@@ -126,7 +144,7 @@ public class ProductController {
 
 		productService.saveProduct(product);
 		model.addAttribute("products", productService.getAllProduct());
-		return "redirect:/home/home";
+		return "redirect:/user/home";
 	}
 
 	@RequestMapping(value = "saveProduct", method = RequestMethod.POST)
@@ -140,18 +158,19 @@ public class ProductController {
 		}
 
 		productService.saveProduct(product);
-		return "redirect:/home/home";
+		return "redirect:/productList";
 	}
 
 	@RequestMapping(value = "/deleteProduct", method = RequestMethod.GET)
 	public String deleteProduct(@RequestParam("id") Long productId, Model model) {
 		productService.deleteProduct(productId);
-		return "redirect:/home/home";
+		return "redirect:/admin/product/productListView";
 	}
 
 	@RequestMapping(value = { "/productImage" }, method = RequestMethod.GET)
 	public void productImage(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam("id") Long id) throws IOException {
+
 		Optional<Product> productOp = null;
 		Product product = null;
 		if (id != null) {

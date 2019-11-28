@@ -23,32 +23,33 @@ public class CatalogyController {
 
 	    model.addAttribute("catalogys", catalogys);  
 
-	    return "home/catalogy/catalogyList";  
+	    return "user/catalogy/catalogyList";  
 	  }  
 
-	  @RequestMapping(value = "addCatalogy")  
+	  @RequestMapping("/addCatalogy")  
 	  public String addCatalogy(Model model) {  
-	    model.addAttribute("catalogy", new Catalogy());  
-	    return "home/catalogy/addCatalogy";  
+		Catalogy catalogy = new Catalogy();
+	    model.addAttribute("catalogy", catalogy);  
+	    return "admin/addCatalogy";  
 	  }  
 
-	  @RequestMapping(value = "/editCatalogy", method = RequestMethod.GET)  
+	  @RequestMapping("/editCatalogy")  
 	  public String editCatalogy(@RequestParam("id") Long catalogyId, Model model) {  
 	    Optional<Catalogy> catalogyEdit = catalogyService.findCatalogyById(catalogyId);  
 	    catalogyEdit.ifPresent(Catalogy -> model.addAttribute("Catalogy", Catalogy));  
-	    return "home/Catalogy/editCatalogy";  
+	    return "admin/editCatalogy";  
 	  }  
 
 	  @RequestMapping(value = "saveCatalogy", method = RequestMethod.POST)  
 	  public String save(Catalogy catalogy) {  
 	    catalogyService.saveCatalogy(catalogy);  
-	    return "redirect:/home/home";  
+	    return "redirect:/user/home";  
 	  }  
 
 	  @RequestMapping(value = "/deleteCatalogy", method = RequestMethod.GET)  
 	  public String deleteCatalogy(@RequestParam("id") Long CatalogyId, Model model) {  
 	    catalogyService.deleteCatalogy(CatalogyId);  
-	    return "redirect:/home/home";  
+	    return "redirect:/user/home";  
 	  }  
 
 }

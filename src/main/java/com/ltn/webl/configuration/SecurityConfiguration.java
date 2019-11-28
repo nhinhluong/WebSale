@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,7 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
  private DataSource dataSource;
  
  String[] resources = new String[]{
-         "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/**"
+         "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/**","/vendor/**","/font/**"
  };
  
  private final String USERS_QUERY = "select email, password, active from user where email=?";
@@ -46,18 +47,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
    .antMatchers(resources).permitAll()
    .antMatchers("/").permitAll()
    .antMatchers("/login").permitAll()
+   .antMatchers(HttpMethod.GET).permitAll()
    .antMatchers("/registration").permitAll()
-   .antMatchers("/admin*").access("hasRole('ADMIN')")
-   .antMatchers("/home*").access("hasRole('USER') or hasRole('ADMIN')")
+   .antMatchers("/admin*").access("hasRole('ROLE_ADMIN')")
+   .antMatchers("/user**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_ANONYMOUS')")
    .anyRequest()
    .authenticated().and().csrf().disable()
    .formLogin().loginPage("/login").failureUrl("/login?error=true")
-   .defaultSuccessUrl("/home/home")
+   .defaultSuccessUrl("/user/home/")
    .usernameParameter("email")
    .passwordParameter("password")
    .and().logout()
    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-   .logoutSuccessUrl("/")
+   .logoutSuccessUrl("/home/")
    .and().rememberMe()
    .tokenRepository(persistentTokenRepository())
    .tokenValiditySeconds(60*60)

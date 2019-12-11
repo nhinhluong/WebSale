@@ -1,10 +1,18 @@
 package com.ltn.webl.controller;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -30,6 +38,8 @@ import com.ltn.webl.entity.Product;
 import com.ltn.webl.entity.Role;
 import com.ltn.webl.entity.User;
 import com.ltn.webl.form.ProductForm;
+import com.ltn.webl.model.FileModel;
+import com.ltn.webl.repository.FileModelRepository;
 import com.ltn.webl.service.CatalogyService;
 import com.ltn.webl.service.ProductService;
 import com.ltn.webl.service.RoleService;
@@ -43,6 +53,9 @@ public class ProductController {
 	private UserService userService;
 	@Autowired
 	private CatalogyService catalogyService;
+	
+	@Autowired
+    FileModelRepository fileRepository;
 
 	@RequestMapping(value={"/productList"}, method = RequestMethod.GET)
 	public String index(Model model) {
@@ -131,8 +144,17 @@ public class ProductController {
 		byte[] imageExist = null;
 		try {
 			if (!fileData.isEmpty()) {
-				imageExist = fileData.getBytes();
-				product.setImage(imageExist);
+				//imageExist = fileData.getBytes();
+				//product.setImage(imageExist);
+				/*note*: set max_allowed_packet = 256M in my.ini MYSQL if error Packet for query is too large */
+				File convFile = convert(fileData);	
+				//fileData.transferTo(convFile);
+				BufferedImage inputImage = ImageIO.read(convFile);
+				BufferedImage resized = resize(inputImage,320,640);
+				File output = new File(fileData.getOriginalFilename());
+		        ImageIO.write(resized, "png", output);
+		        byte[] image1 = readBytesFromFile(output.getPath());
+		        product.setImage(image1);
 			} else {
 				imageExist = existProductOp.get().getImage();
 				product.setImage(imageExist);
@@ -148,15 +170,54 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "saveProduct", method = RequestMethod.POST)
-	public String save(@Valid Product product, @RequestParam("fileData") MultipartFile fileData) {
+	public String save(@Valid Product product, @RequestParam("fileData") MultipartFile[] fileDatas) {
 		try {
-			byte[] image = fileData.getBytes();
-			product.setImage(image);
+			//byte[] image = fileData.getBytes();
+			//product.setImage(image);
+			//test multi file upload
+			List<String> fileNames = new ArrayList<String>();
+			List<FileModel> storedFile = new ArrayList<FileModel>();
+			
+			List<Product> list = new ArrayList<Product>();
+			System.out.println("Multi: "+fileDatas.clone());
+			for(MultipartFile fileData : fileDatas) {
+				FileModel fileModel = fileRepository.findByName(fileData.getOriginalFilename());
+				if(fileData!=null) {					
+					
+					System.out.println("Ten file: "+fileData.getOriginalFilename());
+					System.out.println("Multi: "+fileData);
+					/*note*: set max_allowed_packet = 256M in my.ini MYSQL if error Packet for query is too large */
+					File convFile = convert(fileData);	
+					//fileData.transferTo(convFile);
+					BufferedImage inputImage = ImageIO.read(convFile);
+					//resize image to 640x320
+					BufferedImage resized = resize(inputImage,320,640);
+					File output = new File(fileData.getOriginalFilename());
+			        ImageIO.write(resized, "png", output);
+			        byte[] image1 = readBytesFromFile(output.getPath());
+			        product.setImage(image1);
+			        if (fileModel != null) {
+						//test uplaod multi file
+				        fileModel.setPic(image1);
+				        System.out.println("Product: "+product.getName());
+						fileModel.setProduct(product);
+						System.out.println("Product: "+product.getId());
+						fileModel.setProduct_id(product.getId());
+					}else {
+						fileModel = new FileModel(fileData.getOriginalFilename(), fileData.getContentType(), fileData.getBytes(), product, product.getId());
+					}
+				}
+				fileNames.add(fileData.getOriginalFilename());
+				storedFile.add(fileModel);
+			}
+			
+			fileRepository.saveAll(storedFile);			        
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		
 		productService.saveProduct(product);
 		return "redirect:/productList";
 	}
@@ -183,4 +244,60 @@ public class ProductController {
 		}
 		response.getOutputStream().close();
 	}
+	//resize image
+	private static BufferedImage resize(BufferedImage img, int height, int width) {
+        Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resized.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+        return resized;
+    }
+	//convert multipartfile to file goal to ImageIO read(file)
+	public File convert(MultipartFile file)
+	{    
+	  File convFile = new File(file.getOriginalFilename());
+	  try {
+		convFile.createNewFile();
+		FileOutputStream fos = new FileOutputStream(convFile); 
+		fos.write(file.getBytes());
+		fos.close(); 
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} 
+	  
+	  return convFile;
+	}
+	//convert file to bytes[] to save in db
+	private static byte[] readBytesFromFile(String filePath) {
+
+        FileInputStream fileInputStream = null;
+        byte[] bytesArray = null;
+
+        try {
+
+            File file = new File(filePath);
+            bytesArray = new byte[(int) file.length()];
+
+            //read file into bytes[]
+            fileInputStream = new FileInputStream(file);
+            fileInputStream.read(bytesArray);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        return bytesArray;
+
+    }
 }

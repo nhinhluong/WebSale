@@ -16,6 +16,8 @@ public class ProductForm {
 	private boolean newProduct = false;
 	// Upload file.
     private MultipartFile fileData;
+    //multi file
+    private MultipartFile[] multiData;
 	private Long id;
 	private String name;
 	private String pcode;
@@ -163,9 +165,13 @@ public class ProductForm {
 	public void setProductImage(byte[] productImage) {
 		this.productImage = productImage;
 	}
-	
-	
-	
-	
+
+	public MultipartFile[] getMultiData() {
+		return multiData;
+	}
+
+	public void setMultiData(MultipartFile[] multiData) {
+		this.multiData = multiData;
+	}	
 
 }

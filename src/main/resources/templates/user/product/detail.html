@@ -62,7 +62,7 @@
 												<div class="slider col-md-10 col-xs-10">
 													<input type="radio" name="slide_switch" id="id1"/>
 													<label for="id1">
-														<img th:src="@{|/productImage?id=${product.id}|}"  width="150"/>
+														<img  th:src="@{|/productImage?id=${product.id}|}"  width="150"/>
 													</label>
 													<img th:src="@{|/productImage?id=${product.id}|}" />
 													
@@ -128,7 +128,7 @@
 						</script>
 					</div>
 					<div class="rightsidebar span_3_of_1">
-						<th:block th:include="/home/catalogy/catalogyList"></th:block>
+						<th:block th:include="/user/catalogy/catalogyList"></th:block>
 					</div>
 				</div>
 			</div>

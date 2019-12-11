@@ -1,6 +1,8 @@
 package com.ltn.webl.service;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -78,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
 		product.setDescription(productForm.getDescription());
 		product.setShortdesc(productForm.getShortdesc());
 		product.setIsAvailable(1);
-		if (productForm.getFileData() != null) {
+		/*if (productForm.getFileData() != null) {
 			byte[] image = null;
 			try {
 				image = productForm.getFileData().getBytes();
@@ -86,6 +88,21 @@ public class ProductServiceImpl implements ProductService {
 			}
 			if (image != null && image.length > 0) {
 				product.setImage(image);
+			}
+		}*/
+		MultipartFile[] multiFiles = productForm.getMultiData();
+		for(MultipartFile eachFile : multiFiles) {
+			String fileName = eachFile.getOriginalFilename();
+			
+			if(fileName!=null && fileName.length() > 0 ) {
+				byte[] image1 = null;
+				try {
+					image1 = eachFile.getBytes();
+					product.setImage(image1);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 
